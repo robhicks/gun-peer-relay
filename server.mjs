@@ -22,8 +22,12 @@ import { createServer } from 'http';
 import GUN from 'gun';
 
 const PORT = process.env.PORT || 8000;
+const TARGET = process.env?.TARGET || 'development';
+
 const server = createServer((req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const origin = TARGET === 'development' ? 'http://localhost:8000' : 'heroku.com';
+
+  res.setHeader('Access-Control-Allow-Origin', origin);
   res.setHeader('Access-Control-Request-Method', '*');
   res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
   res.setHeader('Access-Control-Allow-Headers', '*');
